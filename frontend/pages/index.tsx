@@ -2,8 +2,9 @@ import type { GetStaticProps, NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
+import { FAQ, GetFAQResults } from '../types'
 
-const Home: NextPage = ({faqs} : any) => {
+const Home: NextPage<{ faqs: FAQ[] }> = ({faqs}) => {
   return (
     <div className={styles.container}>
       <Head>
@@ -12,11 +13,25 @@ const Home: NextPage = ({faqs} : any) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main>
-        {JSON.stringify(faqs)}
+      <main className={styles.myMain}>
+        <div className={styles.titleBackground}>
+          <h1 className={styles.title}>Frequently Asked Questions</h1>
+        </div>
+        {faqs.map(faq => {
+          return (
+            <div key={faq.id} className={styles.FAQCard}>
+              <h1>{faq.attributes.Question}</h1>
+              <p className={styles.answer}>{faq.attributes.Answer}</p>
+            </div>
+          )
+        })}
+        <p>
+          If you have any futher questions, please contact us at  
+          <a href="mailto:info@standfortrees.org"> info@standfortrees.org</a>
+        </p>
       </main>
 
-      {/* <main className={styles.main}>
+      <main className={styles.main}>
         <h1 className={styles.title}>
           Welcome to <a href="https://nextjs.org">Next.js!</a>
         </h1>
@@ -55,7 +70,7 @@ const Home: NextPage = ({faqs} : any) => {
             </p>
           </a>
         </div>
-      </main> */}
+      </main>
 
       <footer className={styles.footer}>
         <a
@@ -72,7 +87,7 @@ const Home: NextPage = ({faqs} : any) => {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const res = await fetch('http://localhost:1337/api/faqs');
-  const data = await res.json();
+  const { data } : GetFAQResults = await res.json();
 
   return {
     props: {

@@ -1,3 +1,7 @@
+export interface GetFAQResults {
+  data: FAQ[];
+}
+
 export interface FAQ {
   id: number;
   attributes: Attributes;
