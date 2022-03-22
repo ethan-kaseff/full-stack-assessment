@@ -72,7 +72,7 @@ const Home: NextPage = ({faqs} : any) => {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const res = await fetch('http://localhost:1337/api/faqs');
-  const { data } = await res.json();
+  const data = await res.json();
 
   return {
     props: {
