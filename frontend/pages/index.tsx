@@ -1,10 +1,14 @@
-import type { GetStaticProps, NextPage } from 'next'
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
-import { FAQ, GetFAQResults } from '../types'
+import type { GetStaticProps, NextPage } from 'next';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import Head from 'next/head';
+import Image from 'next/image';
+import styles from '../styles/Home.module.css';
+import { FAQ, GetFAQResults } from '../types';
 
 const Home: NextPage<{ faqs: FAQ[] }> = ({faqs}) => {
+  const router = useRouter();
+
   return (
     <div className={styles.container}>
       <Head>
@@ -17,6 +21,13 @@ const Home: NextPage<{ faqs: FAQ[] }> = ({faqs}) => {
         <div className={styles.titleBackground}>
           <h1 className={styles.title}>Frequently Asked Questions</h1>
         </div>
+        <Link href={router.asPath} locale={router.locale === 'en' ? 'es' : 'en'}>
+          <a>
+            {
+              router.locale === 'en' ? 'Hablo Espanol?' : 'Speak English?'
+            }
+          </a>
+        </Link>
         {faqs.map(faq => {
           return (
             <div key={faq.id} className={styles.FAQCard}>
@@ -85,9 +96,9 @@ const Home: NextPage<{ faqs: FAQ[] }> = ({faqs}) => {
   )
 }
 
-export const getStaticProps: GetStaticProps = async (context) => {
-  const res = await fetch('http://localhost:1337/api/faqs');
-  const { data } : GetFAQResults = await res.json();
+export const getStaticProps: GetStaticProps = async ({locale}) => {
+  const res = await fetch(`http://localhost:1337/api/faqs?locale=${locale}`)
+  const { data } : GetFAQResults = await res.json()
 
   return {
     props: {
@@ -97,4 +108,4 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
 }
 
-export default Home
+export default Home;
