@@ -1,5 +1,5 @@
 .container {
-  padding: 0 2rem;
+  /* padding: 0 2rem; */
 }
 
 .main {
@@ -123,20 +123,49 @@
 
 .titleBackground {
   background-color: black;
-  width: 25%;
+  width: 40%;
   align-items: center;
-  margin-top: 30px;
+  margin-top: -50px;
 }
 
 .myMain {
-  display: flex;
-  justify-items: center;
-  flex-direction: column;
-  align-items: center;
+  /* position: absolute; */
 }
 
 .FAQCard {
   margin: 5px;
   width: 60%;
   border-bottom: 2px solid rgba(0,0,0,0.08);
+}
+
+.content {
+  display: flex;
+  justify-items: center;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  top: 400px;
+  background-color: white;
+}
+
+.image {
+  position: absolute;
+  top: -100px;
+  margin-top: -100px;
+}
+
+.language {
+  position: absolute;
+  right: 0;
+  top: 0;
+  margin: 4px;
+  padding: 4px;
+  border-radius: 6px;
+  background-color: lightsalmon;
+  z-index: 1;
+  font-size: large;
+}
+
+.question:hover {
+  color: rgb(43, 187, 166);
 }
